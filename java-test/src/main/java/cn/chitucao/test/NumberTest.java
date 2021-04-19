@@ -1,19 +1,36 @@
 package cn.chitucao.test;
 
+import org.junit.Test;
+
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 public class NumberTest {
 
+    public static final long START = 1000000000L;
+
+    public static final long STEP = 10;
+
+    public static final long ZHONGTIAN = 0;
+
+    @Test
+    public void genId() {
+        Long id = 1128091020L;
+
+        Long originId = (id - START - ZHONGTIAN) / STEP;
+        System.out.println("原CustomerId：" + originId);
+    }
+
+
     public static void main(String[] args) {
 //        testFormat();
 //       testFloatProblem();
 //       testBigDecimalProblem();
-        System.out.println(2>>1);
+        System.out.println(2 >> 1);
     }
 
 
-    public static void testFormat(){
+    public static void testFormat() {
         BigDecimal num = new BigDecimal("0");
         DecimalFormat df = new DecimalFormat("#,##0.00");
         System.out.println(df.format(num));
@@ -31,7 +48,7 @@ public class NumberTest {
      * longValue()           将BigDecimal对象中的值以长整数返回。
      * intValue()            将BigDecimal对象中的值以整数返回。
      */
-    public static void testBigDecimalProblem(){
+    public static void testBigDecimalProblem() {
         BigDecimal a = new BigDecimal(1.01);
         BigDecimal b = new BigDecimal(1.02);
         BigDecimal c = new BigDecimal("1.01");
@@ -43,7 +60,7 @@ public class NumberTest {
     /**
      * Java中float的精度为6-7位有效数字。double的精度为15-16位。
      */
-    public static void testFloatProblem(){
+    public static void testFloatProblem() {
         System.out.println(0.05 + 0.01);
         System.out.println(1.0 - 0.42);
         System.out.println(4.015 * 100);

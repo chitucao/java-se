@@ -1,9 +1,6 @@
 package cn.chitucao.test;
 
-import cn.hutool.core.date.DatePattern;
-import cn.hutool.core.date.DateTime;
-import cn.hutool.core.date.DateUnit;
-import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.date.*;
 import org.junit.Test;
 
 import java.util.Calendar;
@@ -78,12 +75,12 @@ public class DateTest {
         System.out.println(start);
     }
 
-    static void currentYear(){
+    static void currentYear() {
         Date date = DateUtil.beginOfYear(new Date());
         System.out.println(date);
     }
 
-    public static void testSheetName(){
+    public static void testSheetName() {
 //        String name = DateUtil.format(new Date(), DatePattern.CHINESE_DATE_FORMAT) + " 结算明细表";
         String wbName = DateUtil.format(new Date(), DatePattern.PURE_DATE_PATTERN)
                 + "-" + DateUtil.format(new Date(), DatePattern.PURE_DATE_PATTERN) + " 结算明细表";
@@ -91,14 +88,14 @@ public class DateTest {
     }
 
 
-    private static void testCalendar(){
+    private static void testCalendar() {
         Date end = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(end);
         calendar.add(Calendar.MONTH, -2);
         Date start = calendar.getTime();
-        System.out.println(DateUtil.format(start,DatePattern.NORM_DATETIME_PATTERN));
-        System.out.println(DateUtil.format(end,DatePattern.NORM_DATETIME_PATTERN));
+        System.out.println(DateUtil.format(start, DatePattern.NORM_DATETIME_PATTERN));
+        System.out.println(DateUtil.format(end, DatePattern.NORM_DATETIME_PATTERN));
 
         //处理时间
         calendar.setTime(start);
@@ -112,34 +109,77 @@ public class DateTest {
         calendar.set(Calendar.DAY_OF_MONTH, 0);
         end = calendar.getTime();
 
-        System.out.println(DateUtil.format(start,DatePattern.NORM_DATETIME_PATTERN));
-        System.out.println(DateUtil.format(end,DatePattern.NORM_DATETIME_PATTERN));
+        System.out.println(DateUtil.format(start, DatePattern.NORM_DATETIME_PATTERN));
+        System.out.println(DateUtil.format(end, DatePattern.NORM_DATETIME_PATTERN));
 
         end = DateUtil.endOfMonth(new Date());
         start = DateUtil.beginOfMonth(DateUtil.offsetMonth(end, -2));
 
-        System.out.println(DateUtil.format(start,DatePattern.NORM_DATETIME_PATTERN));
-        System.out.println(DateUtil.format(end,DatePattern.NORM_DATETIME_PATTERN));
+        System.out.println(DateUtil.format(start, DatePattern.NORM_DATETIME_PATTERN));
+        System.out.println(DateUtil.format(end, DatePattern.NORM_DATETIME_PATTERN));
     }
 
-    private static void testDateFormat(){
+    private static void testDateFormat() {
         String nowStr = DateUtil.format(new Date(), "yyyy年MM月dd日 HH时mm分ss秒");
         System.out.println(nowStr);
     }
 
     @Test
-    public void testRun(){
+    public void testRunPetkit() {
         DateTime runDay = DateUtil.parse("2020-09-25");
-        long between = DateUtil.between(new Date(),runDay, DateUnit.DAY);
-        System.out.println("距离跑路的 "+between + " 天");
+        long between = DateUtil.between(new Date(), runDay, DateUnit.DAY);
+        System.out.println("距离【petkit】跑路的 " + between + " 天");
     }
 
     @Test
-    public void testBetweenMonth(){
+    public void testRunZto() {
+        DateTime runDay = DateUtil.parse("2022-11-04");
+        long between = DateUtil.between(new Date(), runDay, DateUnit.DAY);
+        System.out.println("距离【zto】跑路的 " + between + " 天");
+    }
+
+    @Test
+    public void testBetweenMonth() {
         DateTime start = DateUtil.parse("2020-03-25");
         DateTime after3Month = DateUtil.offsetMonth(start, 3);
         System.out.println(after3Month);
         DateTime end = DateUtil.parse("2020-06-26");
         System.out.println(end.after(after3Month));
+    }
+
+    @Test
+    public void testLeaveShenzhou() {
+        // 2020-10-15  借调到电商研发部
+
+        DateTime leaveDay = DateUtil.parse("2020-10-14");
+        long between = DateUtil.between(leaveDay, new Date(), DateUnit.DAY);
+        System.out.println("离开产品二部的 " + between + " 天");
+        System.out.println("来到电商研发部的 " + between + " 天");
+    }
+
+    @Test
+    public void testNewYear() {
+        DateTime newYear = DateUtil.parse("2021-02-11");
+        long between = DateUtil.between(newYear, new Date(), DateUnit.DAY);
+        System.out.println("还有 " + between + " 天过年了");
+    }
+
+    @Test
+    public void testGirlFriend() {
+        DateTime birthday = DateUtil.parse("1995-04-25");
+        long between = DateUtil.between(birthday, new Date(), DateUnit.DAY);
+        System.out.println("母胎单身" + between + " 天了");
+    }
+
+    @Test
+    public void testOffset() {
+        DateTime offset = DateUtil.offset(new Date(), DateField.YEAR, -1);
+        System.out.println("一年前的某一天" + DateUtil.format(offset, DatePattern.NORM_DATETIME_PATTERN));
+    }
+
+    @Test
+    public void testBetweenSeconds() {
+        long betweenSeconds = DateUtil.between(new Date(), DateUtil.endOfDay(new Date()), DateUnit.SECOND);
+        System.out.println("距离今天结束还剩：" + betweenSeconds + "秒");
     }
 }

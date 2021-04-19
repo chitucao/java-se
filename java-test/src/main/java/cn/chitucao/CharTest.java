@@ -11,6 +11,8 @@ public class CharTest {
         String a = "230";
 //        String s = new String(a, "ISO8859-1");
 
+        Byte b = 0;
+        System.out.println(Integer.valueOf(b)==1);
 
 
         System.out.println(a);
