@@ -18,8 +18,7 @@ public class CalculateTest {
 
     @Test
     public void testTableTo() {
-        String siteIdsStr = "57,194,218,1557,1896,2483,2544,2661,2741,2743,3018,3214,3271,3299,3378,3452,3473,3475,3622,3721,3906,3934,4003,4004,4267" +
-                ",4270,4587,4721,4781,5532,5667,5708,6421,6852,7529,8109,8325,8375,8820,8862,10503,10848,14246,16450,1022474,1023400,1025561,1045771,1047640,1048151,1053484,1053806,1057092,1064202";
+        String siteIdsStr = "2743";
         List<Long> siteIds = Arrays.stream(siteIdsStr.split(",")).map(Long::parseLong).collect(Collectors.toList());
         List<NumTo> numToList = new ArrayList<>(siteIds.size());
         for (Long siteId : siteIds) {

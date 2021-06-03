@@ -1,5 +1,6 @@
 package cn.chitucao.test;
 
+import cn.hutool.core.util.NumberUtil;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -12,6 +13,20 @@ public class NumberTest {
     public static final long STEP = 10;
 
     public static final long ZHONGTIAN = 0;
+
+    @Test
+    public void testMax(){
+        BigDecimal num1 = null;
+        BigDecimal num2 = BigDecimal.ZERO;
+        BigDecimal num3 = new BigDecimal(-1);
+        BigDecimal num4 = null;
+        BigDecimal num5 = null;
+
+        BigDecimal max = NumberUtil.max(num1, num2, num3, num4, num5);
+        System.out.println(max);
+
+    }
+
 
     @Test
     public void genId() {

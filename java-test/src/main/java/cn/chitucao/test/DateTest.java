@@ -172,6 +172,27 @@ public class DateTest {
     }
 
     @Test
+    public void testFriends() {
+        DateTime gz = DateUtil.parse("2021-03-16");
+        DateTime tt = DateUtil.parse("2021-04-11");
+
+        long gzGo = DateUtil.between(gz, new Date(), DateUnit.DAY);
+        System.out.println("狗贼跑路的 " + gzGo + " 天了");
+
+        long ttGo = DateUtil.between(tt, new Date(), DateUnit.DAY);
+        System.out.println("田嘟嘟跑路的 " + ttGo + " 天了");
+    }
+
+    @Test
+    public void testWork() {
+        DateTime zz = DateUtil.parse("2021-04-10");
+
+        long zzH = DateUtil.between(zz, new Date(), DateUnit.DAY);
+        System.out.println("中通转正后的 " + zzH + " 天了");
+    }
+
+
+    @Test
     public void testOffset() {
         DateTime offset = DateUtil.offset(new Date(), DateField.YEAR, -1);
         System.out.println("一年前的某一天" + DateUtil.format(offset, DatePattern.NORM_DATETIME_PATTERN));
@@ -181,5 +202,12 @@ public class DateTest {
     public void testBetweenSeconds() {
         long betweenSeconds = DateUtil.between(new Date(), DateUtil.endOfDay(new Date()), DateUnit.SECOND);
         System.out.println("距离今天结束还剩：" + betweenSeconds + "秒");
+    }
+
+    @Test
+    public void testNpee() {
+        DateTime examDay = DateUtil.parse("2021-12-26");
+        long remainDay= DateUtil.between(new Date(),examDay,DateUnit.DAY)-1L;
+        System.out.println("NPEE remain day" + remainDay + "天");
     }
 }

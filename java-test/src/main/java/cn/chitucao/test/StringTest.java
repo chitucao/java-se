@@ -112,5 +112,13 @@ public class StringTest {
     public void testDateLength(){
         System.out.println(String.valueOf(System.currentTimeMillis()).length());
     }
+
+    @Test
+    public void testWrap(){
+
+        String text = "张三";
+        System.out.println(StrUtil.wrap(text,"%","%"));
+
+    }
 }
 
