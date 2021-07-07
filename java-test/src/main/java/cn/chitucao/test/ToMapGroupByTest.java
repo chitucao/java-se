@@ -12,7 +12,7 @@ import java.util.List;
 public class ToMapGroupByTest {
 
     private static List<Student> list = new ArrayList<Student>(){{
-        add(new Student(1,18,"小明"));
-        add(new Student(2,18,"小张"));
+//        add(new Student(1,18,"小明"));
+//        add(new Student(2,18,"小张"));
     }};
 }

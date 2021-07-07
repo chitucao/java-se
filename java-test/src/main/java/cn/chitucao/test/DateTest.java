@@ -207,7 +207,31 @@ public class DateTest {
     @Test
     public void testNpee() {
         DateTime examDay = DateUtil.parse("2021-12-26");
-        long remainDay= DateUtil.between(new Date(),examDay,DateUnit.DAY)-1L;
+        long remainDay = DateUtil.between(new Date(), examDay, DateUnit.DAY) - 1L;
         System.out.println("NPEE remain day" + remainDay + "天");
+    }
+
+    @Test
+    public void testYear() {
+
+        // 阴历过年完
+        DateTime leaveDay = DateUtil.parse("2021-02-12");
+        long lostDay = DateUtil.between(new Date(), leaveDay, DateUnit.DAY);
+        System.out.println("2021年已经过去：" + lostDay + "天");
+
+        // 2022阳历过年
+        DateTime yearDay = DateUtil.parse("2021-12-31");
+        long remainDay = DateUtil.between(new Date(), yearDay, DateUnit.DAY);
+        System.out.println("阳历 距离过年还有：" + remainDay + "天");
+
+        // 2022阴历过年
+        DateTime yearDay1 = DateUtil.parse("2022-01-31");
+        long remainDay1 = DateUtil.between(new Date(), yearDay1, DateUnit.DAY);
+        System.out.println("阴历 距离过年还有：" + remainDay1 + "天");
+
+        // NPEE
+        DateTime examDay = DateUtil.parse("2021-12-26");
+        long npeeDay = DateUtil.between(new Date(), examDay, DateUnit.DAY) - 1L;
+        System.out.println("NPEE remain day：" + npeeDay + "天");
     }
 }

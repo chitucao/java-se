@@ -18,12 +18,13 @@ public class CalculateTest {
 
     @Test
     public void testTableTo() {
-        String siteIdsStr = "2743";
+//        String siteIdsStr = "1062095";
+        String siteIdsStr = "1062095";
         List<Long> siteIds = Arrays.stream(siteIdsStr.split(",")).map(Long::parseLong).collect(Collectors.toList());
         List<NumTo> numToList = new ArrayList<>(siteIds.size());
         for (Long siteId : siteIds) {
             // 落表
-            long tableNum = (siteId + 1L) % 1024L;
+            long tableNum = (siteId + 1L-1L) % 4096L;
 
             // 落库
             long dataBaseNum = tableNum / 128 + 2L;
@@ -53,5 +54,26 @@ public class CalculateTest {
         private Long dataBaseNum;
 
         private Long tableNum;
+    }
+
+    @Test
+    public void testQuery(){
+
+        int dbSize = 3;
+
+
+
+
+
+
+//        dbSize--;
+
+        Long value = Long.parseLong("1062095");
+        Long tableSize = 4096L;
+        Long size = (tableSize - (tableSize / dbSize)) / (dbSize - 1);
+        size = tableSize % size == 0 ? size : size + 1;
+        Long ds = (value % tableSize) / size;
+        // + 1 是为了跳过第一个库
+        System.out.println(ds);
     }
 }

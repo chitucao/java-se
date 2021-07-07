@@ -82,5 +82,10 @@ public class NumberTest {
         System.out.println(123.3 / 100);
     }
 
+    @Test
+    public  void testDivide(){
+        BigDecimal multiply = (new BigDecimal(52).multiply(new BigDecimal(100)).divide(new BigDecimal(90), 2, BigDecimal.ROUND_UP));
+        System.out.println(multiply);
+    }
 
 }
