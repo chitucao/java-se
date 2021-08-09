@@ -51,7 +51,7 @@ public class StringTest {
 
     @Test
     public void testLowCase() {
-        String text = "SCAN_TIME";
+        String text = "ARREARAGE_BILL_REC_SCAN_LIMIT";
         String result = StrUtil.toCamelCase(text.toLowerCase());
         System.out.println(result);
     }
