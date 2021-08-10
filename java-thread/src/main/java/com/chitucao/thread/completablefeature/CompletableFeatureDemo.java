@@ -15,6 +15,9 @@ import java.util.concurrent.TimeUnit;
  */
 public class CompletableFeatureDemo {
 
+    // 其他方法
+    // CompletableFuture.allOf(userCountCf).join();  多个异步任务合并
+
     @Test
     public void runAsync() {
         CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {

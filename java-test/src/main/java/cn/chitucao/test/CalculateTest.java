@@ -18,21 +18,18 @@ public class CalculateTest {
 
     @Test
     public void testTableTo() {
-//        String siteIdsStr = "1062095";
-        String siteIdsStr = "1062095";
+        String siteIdsStr = "2497";
         List<Long> siteIds = Arrays.stream(siteIdsStr.split(",")).map(Long::parseLong).collect(Collectors.toList());
         List<NumTo> numToList = new ArrayList<>(siteIds.size());
         for (Long siteId : siteIds) {
             // 落表
-            long tableNum = (siteId + 1L-1L) % 4096L;
+            long tableNum = (siteId + 1L) % 1024;
 
             // 落库
             long dataBaseNum = tableNum / 128 + 2L;
 
             NumTo numTo = new NumTo(siteId, dataBaseNum, tableNum);
             numToList.add(numTo);
-
-
         }
         numToList = numToList.stream().sorted(Comparator.comparing(NumTo::getDataBaseNum)).collect(Collectors.toList());
         for (NumTo numTo : numToList) {
