@@ -24,6 +24,17 @@ public class DateTest {
 //        testDateFormat();
     }
 
+    @Test
+    public void testBetweenDay() {
+        Date date1 = DateUtil.parse("2021-08-30 08:00:00");
+        Date date2 = DateUtil.parse("2021-09-03 09:00:00");
+
+        System.out.println(DateUtil.between(date1, date2, DateUnit.DAY));
+        //        long l = DateUtil.offsetDay(date2, -1).getTime() - date1.getTime();
+//        System.out.println(l);
+
+    }
+
     static void testyesterday() {
         //昨天开始时间
         Date notifyStartTime = DateUtil.offsetDay(DateUtil.beginOfDay(new Date()), -1);
