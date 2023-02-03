@@ -1,8 +1,11 @@
 package cn.chitucao.test;
 
 import cn.hutool.core.date.*;
+import cn.hutool.core.util.StrUtil;
 import org.junit.Test;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -223,17 +226,27 @@ public class DateTest {
     }
 
     @Test
+    public void testCalendar1() {
+        String empEntryMonth = "0";
+        Format f = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c = Calendar.getInstance();
+        int value = 0;
+        if (StrUtil.isNotBlank(empEntryMonth)) {
+            value = Integer.valueOf(empEntryMonth);
+        }
+        c.add(Calendar.MONTH, -value);
+        String s = f.format(c.getTime());
+        Date date = DateUtil.parse(s, "yyyy-MM-dd");
+        System.out.println(date);
+    }
+
+    @Test
     public void testYear() {
 
-        // 阴历过年完
+        // 2021阴历过年已过去
         DateTime leaveDay = DateUtil.parse("2021-02-12");
         long lostDay = DateUtil.between(new Date(), leaveDay, DateUnit.DAY);
         System.out.println("2021年已经过去：" + lostDay + "天");
-
-        // 2022阳历过年
-        DateTime yearDay = DateUtil.parse("2021-12-31");
-        long remainDay = DateUtil.between(new Date(), yearDay, DateUnit.DAY);
-        System.out.println("阳历 距离过年还有：" + remainDay + "天");
 
         // 2022阴历过年
         DateTime yearDay1 = DateUtil.parse("2022-01-31");
@@ -244,5 +257,39 @@ public class DateTest {
         DateTime examDay = DateUtil.parse("2021-12-26");
         long npeeDay = DateUtil.between(new Date(), examDay, DateUnit.DAY) - 1L;
         System.out.println("NPEE remain day：" + npeeDay + "天");
+
+        int year = DateUtil.year(new Date());
+        System.out.println("当前年是" + year);
     }
+
+    @Test
+    public void testYesterday() {
+        Date yesterday = DateUtil.yesterday();
+        System.out.println(yesterday);
+    }
+
+    @Test
+    public void test2022() {
+        Date now = new Date();
+        Date birthDay = DateUtil.parse("1995-04-25");
+        Date begin2022 = DateUtil.parse("2022-02-01");
+        System.out.println("2022已经过去" + DateUtil.betweenDay(begin2022, now, false) + "天");
+        System.out.println("已经活了" + DateUtil.betweenDay(birthDay, now, false) + "天");
+    }
+
+    @Test
+    public void test11() {
+        AbstractClass abstractClass = new ClassImpl();
+        System.out.println(abstractClass.getClass());
+    }
+
+    @Test
+    public void testTimestamp() {
+        Date date = new Date();
+        System.out.println("time：" + date.getTime());
+
+        System.out.println("sorphkqhnxa".length());
+
+    }
+
 }

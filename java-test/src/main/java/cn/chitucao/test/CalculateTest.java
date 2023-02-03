@@ -73,4 +73,24 @@ public class CalculateTest {
         // + 1 是为了跳过第一个库
         System.out.println(ds);
     }
+
+    @Test
+    public void testDataContrast(){
+
+
+
+        String shardingValue = "8345";
+        Integer dbSize = 8;
+
+        dbSize--;
+
+        Long value = Long.parseLong(shardingValue.toString());
+        Long tableSize = 4096L;
+        System.out.println(value%tableSize);
+
+        Long size = (tableSize - (tableSize / dbSize)) / (dbSize - 1);
+        size = tableSize % size == 0 ? size : size + 1;
+        Long ds = (value % tableSize) / size;
+        System.out.println(ds+1);
+    }
 }

@@ -1,10 +1,13 @@
 package cn.chitucao.test;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
+import lombok.Data;
 import org.junit.Test;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -115,17 +118,17 @@ public class StringTest {
         String text =
                 // 2021-07-01 整个上海管区
                 "40,75,96,259,328,436,439,440,464,487,530,572,800,804,847,913,941,951,978,1080,1100,1105,1190,1200,1324,1331,1454,1471,1615,1619,1691,1760,1836,2088,2104,2118,2182,2190,2207," +
-                "2221,2262,2412,2504,2521,2540,2546,2563,2611,2660,2681,2745,2902,2904,2906,2962,2990,3057,3113,3118,3135,3160,3163,3186,3199,3246,3270,3271,3272,3273,3288,3291,3329,3330,3338," +
-                "3378,3401,3402,3405,3407,3466,3467,3481,3498,3521,3552,3553,3561,3564,3566,3574,3577,3660,3735,3736,3737,3818,3828,3834,3853,3877,3878,3881,3882,3943,3944,3946,3947,3978,3984," +
-                "4001,4022,4083,4134,4135,4159,4236,4409,4681,4714,4792,4897,4938,5015,5539,5784,5794,6121,6399,6420,6421,6422,6868,7026,7101,7278,7292,7334,7413,7484,7541,7586,7633,7790,7830," +
-                "7869,7998,8000,8040,8100,8123,8255,8363,8441,8683,8811,9087,9207,9256,10907,10908,10909,10910,10941,11265,11441,11641,11661,11921,12201,12246,12344,13421,13641,15281,15902," +
-                "16222,16542,1021832,1022384,1022505,1022772,1022895,1023070,1023071,1023430,1023431,1023810,1024030,1024280,1024860,1025240,1025420,1025662,1025725,1025800,1025846,1025900," +
-                "1028213,1032322,1037976,1041265,1041266,1041596,1041597,1041723,1041735,1042874,1043775,1045533,1046611,1047266,1048396,1048500,1048793,1049251,1050351,1050415,1050649,1051093," +
-                "1051094,1051313,1051344,1051657,1051672,1051741,1051819,1051821,1052131,1053484,1055089,1055133,1055279,1055307,1055458,1056428,1056967,1057665,1057739,1057769,1058682,1059536," +
-                "1059774,1060580,1060587,1060653,1060654,1060794,1060801,1060828,1061246,1061488,1061618,1061620,1061630,1061700,1061716,1061717,1061807,1061870,1061906,1061938,1061992,1062042," +
-                "1062094,1062273,1062345,1062347,1062383,1062400,1062616,1062658,1062659,1062749,1062750,1063275,1063297,1063298,1063569,1063657,1063771,1063941,1064052,1064179,1064225,1064392," +
-                "1064400,1064421,1064424,1064425,1064449,1064472,1064488,1064594,1064647,1064752,1064898,1064899,1064901,1065252,1065294,1065295,1065298,1065310,1065317,1065338,1065344,1065375," +
-                "1065447,1065448,1065453,1065479,1065490,1065563,1065572,1065606,1065717,1065831,1065843,1065927,1065935,1065958,1066000,1066044,1066103,1066122,1066152,1066192";
+                        "2221,2262,2412,2504,2521,2540,2546,2563,2611,2660,2681,2745,2902,2904,2906,2962,2990,3057,3113,3118,3135,3160,3163,3186,3199,3246,3270,3271,3272,3273,3288,3291,3329,3330,3338," +
+                        "3378,3401,3402,3405,3407,3466,3467,3481,3498,3521,3552,3553,3561,3564,3566,3574,3577,3660,3735,3736,3737,3818,3828,3834,3853,3877,3878,3881,3882,3943,3944,3946,3947,3978,3984," +
+                        "4001,4022,4083,4134,4135,4159,4236,4409,4681,4714,4792,4897,4938,5015,5539,5784,5794,6121,6399,6420,6421,6422,6868,7026,7101,7278,7292,7334,7413,7484,7541,7586,7633,7790,7830," +
+                        "7869,7998,8000,8040,8100,8123,8255,8363,8441,8683,8811,9087,9207,9256,10907,10908,10909,10910,10941,11265,11441,11641,11661,11921,12201,12246,12344,13421,13641,15281,15902," +
+                        "16222,16542,1021832,1022384,1022505,1022772,1022895,1023070,1023071,1023430,1023431,1023810,1024030,1024280,1024860,1025240,1025420,1025662,1025725,1025800,1025846,1025900," +
+                        "1028213,1032322,1037976,1041265,1041266,1041596,1041597,1041723,1041735,1042874,1043775,1045533,1046611,1047266,1048396,1048500,1048793,1049251,1050351,1050415,1050649,1051093," +
+                        "1051094,1051313,1051344,1051657,1051672,1051741,1051819,1051821,1052131,1053484,1055089,1055133,1055279,1055307,1055458,1056428,1056967,1057665,1057739,1057769,1058682,1059536," +
+                        "1059774,1060580,1060587,1060653,1060654,1060794,1060801,1060828,1061246,1061488,1061618,1061620,1061630,1061700,1061716,1061717,1061807,1061870,1061906,1061938,1061992,1062042," +
+                        "1062094,1062273,1062345,1062347,1062383,1062400,1062616,1062658,1062659,1062749,1062750,1063275,1063297,1063298,1063569,1063657,1063771,1063941,1064052,1064179,1064225,1064392," +
+                        "1064400,1064421,1064424,1064425,1064449,1064472,1064488,1064594,1064647,1064752,1064898,1064899,1064901,1065252,1065294,1065295,1065298,1065310,1065317,1065338,1065344,1065375," +
+                        "1065447,1065448,1065453,1065479,1065490,1065563,1065572,1065606,1065717,1065831,1065843,1065927,1065935,1065958,1066000,1066044,1066103,1066122,1066152,1066192";
 
 
         List<Long> longList = Arrays.stream(text.split(",")).map(Long::valueOf).sorted().collect(Collectors.toList());
@@ -157,6 +160,12 @@ public class StringTest {
     }
 
     @Test
+    public void testLength2() {
+        String text = "SYSB2102170000001";
+        System.out.println(text.length());
+    }
+
+    @Test
     public void testDecode() {
         String input = "%7B%22siteCode%22%3A%2251970%22%2C%22siteId%22%3A23%2C%22siteName%22%3A%22%E5%B8%B8%E5%B7%9E%E8%A5%BF%E6%9E%97%22%2C%22id%22%3A23%7D";
         System.out.println("转换前得结果：" + input);
@@ -167,6 +176,125 @@ public class StringTest {
             e.printStackTrace();
         }
         System.out.println("转换后得结果：" + output);
+    }
+
+    @Test
+    public void testLength() {
+        String text = "{\"editor\":\"冯志省\",\"accountCode\":\"JS0000046\",\"creator\":\"冯志省\",\"gmtModified\":1493947344000,\"czLeastSingle\":1,\"balanceMoney\":0,\"onlineDrawStatus\":0,\"accountName\":\"黎少滔\",\"onlineStatus\":0,\"accountType\":-1,\"userName\":\"黎少滔\",\"gmtCreate\":1493947344000,\"userCode\":\"172_30174.133\",\"siteId\":172,\"guardMoney\":0,\"txSingleDay\":0,\"id\":730482,\"txSingle\":0,\"status\":0}";
+        System.out.println(text.length());
+    }
+
+    @Test
+    public void testChar() {
+        String str = "";
+        char c = 'c';
+        String s = str + c;
+        String.valueOf(c);
+
+        System.out.println(s);
+    }
+
+    @Data
+    class Title {
+        private String title;
+        private String property;
+    }
+
+    @Test
+    public void testGenTitle() {
+
+        List<String> titles = getExcelTitles();
+        List<String> properties = getProperties();
+        List<Title> list = new ArrayList<>(titles.size());
+        for (int i = 0; i < titles.size(); i++) {
+            Title title = new Title();
+            title.setTitle(titles.get(i));
+            title.setProperty(properties.get(i));
+            list.add(title);
+        }
+        String result = JSONUtil.toJsonStr(list);
+        System.out.println(result);
+    }
+
+
+    private List<String> getExcelTitles() {
+        return Arrays.asList("单号", "包号", "收件时间", "揽件业务员", "揽件业务员编码", "揽件网点", "目的地",
+                "目的网点", "当前所在网点", "操作类型", "当前节点扫描时间", "当前节点操作内容", "派件业务员",
+                "派件业务员编码", "派件网点", "是否签收", "签收网点", "签收省份", "签收时间",
+                "面单发送客户", "是否问题件", "问题件登记时间", "问题件登记网点", "是否退件",
+                "收件重量", "面单使用网点", "最大重量");
+    }
+
+    private List<String> getProperties() {
+        //方法重写
+        return Arrays.asList("billCode", "bagNo", "scanDate", "recManName", "recManCode", "recSiteName", "dispatch",
+                "expectLastSiteName", "siteName", "dateSource", "nowScanDate", "activeContent", "dispManName",
+                "dispManCode", "signIdName", "sigeStatus", "signSiteName", "signProvince", "signDate",
+                "userProvCustomerName", "isWentijian", "problemRecordDate", "problemRecordSiteName", "returnStatus",
+                "recWeight", "proUseSiteName", "maxWeight");
+    }
+
+    @Test
+    public void testSub() {
+        String text = "0123456789";
+        // substring中的endIndex是不包含的
+        String substring = text.substring(1, 2);
+        System.out.println(substring);
+
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+
+//        System.out.println(text.substring(1));
+    }
+
+    @Test
+    public void testStrSub() {
+        String a = "01";
+        for (int j = 0; j < a.length(); j++) {
+            if (j == a.length() - 1 || a.charAt(j) != '0') {
+
+                a = a.substring(j);
+                System.out.println(j);
+                System.out.println(a);
+                break;
+            }
+        }
+        System.out.println(a);
+    }
+
+    @Test
+    public void testEqualIgnoreCase() {
+        String name1 = "abc1232" + "A";
+        String name2 = "Abc1232" + "a";
+        System.out.println(name1.equalsIgnoreCase(name2));
+    }
+
+    @Test
+    public void testReplaceUrl() {
+        String insideUrl = "http://newfs.ztosys.com/GetEncryptFile?appid=zty4tKNm5pUQu2tU5rTDwg4A&data=%7B%22securityToken%22%3A%2249mcu8oeu6dgzz3qda79f6penb53xop2%22%2C%22waterMark%22%3A%22false%22%2C%22userName%22%3A%22gaoyang34%22%2C%22remoteFileId%22%3A%2220220725000100330785-9ba10c532716479ab0f372021cca8701.pdf%22%7D&signature=A25DCA627AA7D3A38B4F82B45F474186CA734E6B";
+        String insideHost = "http://newfs.ztosys.com";
+        String publicHost = "https://fscdn.zto.com";
+
+        if (insideUrl.startsWith(insideHost)) {
+            String publicUrl = insideUrl.replace(insideHost, publicHost);
+            System.out.println(publicUrl);
+        }
+
+    }
+
+
+    @Test
+    public void testSplit(){
+//        String text = "/a";
+//        String[] split = text.split("///");
+//        System.out.println(JSONUtil.toJsonStr(split));
+
+//        String text = ",a";
+//        String[] split = text.split(",");
+//        System.out.println(JSONUtil.toJsonStr(split));
+
+        String text = "/abc";
+        text = text.substring(1);
+        System.out.println(text);
     }
 }
 

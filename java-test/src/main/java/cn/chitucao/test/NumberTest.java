@@ -1,9 +1,13 @@
 package cn.chitucao.test;
 
+import cn.chitucao.lombok.UserBalance;
 import cn.hutool.core.util.NumberUtil;
+import cn.hutool.json.JSONUtil;
+import com.google.common.base.Strings;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 public class NumberTest {
@@ -15,7 +19,7 @@ public class NumberTest {
     public static final long ZHONGTIAN = 0;
 
     @Test
-    public void testMax(){
+    public void testMax() {
         BigDecimal num1 = null;
         BigDecimal num2 = BigDecimal.ZERO;
         BigDecimal num3 = new BigDecimal(-1);
@@ -83,9 +87,40 @@ public class NumberTest {
     }
 
     @Test
-    public  void testDivide(){
+    public void testDivide() {
         BigDecimal multiply = (new BigDecimal(52).multiply(new BigDecimal(100)).divide(new BigDecimal(90), 2, BigDecimal.ROUND_UP));
         System.out.println(multiply);
     }
 
+    @Test
+    public void testBigDecimal() {
+        BigDecimal money = new BigDecimal("9999");
+        UserBalance userBalance = new UserBalance();
+        userBalance.setName("tom");
+        userBalance.setMoney(money);
+        System.out.println(JSONUtil.toJsonStr(userBalance));
+
+        System.out.println(toString(money,3));
+    }
+
+    public String toString(BigDecimal bigDecimal, Integer digit) {
+        String format = Strings.padEnd("0.", digit + 2, '0');
+        System.out.println(format);
+        DecimalFormat decimalFormat = new DecimalFormat(format);
+        return decimalFormat.format(bigDecimal);
+    }
+
+    @Test
+    public void testBigDecimalFormat(){
+        BigDecimal money = new BigDecimal("10.6666");
+        UserBalance userBalance = new UserBalance();
+        userBalance.setName("tom");
+        userBalance.setMoney(money);
+        System.out.println(JSONUtil.toJsonStr(userBalance));
+
+        DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+        decimalFormat.setRoundingMode(RoundingMode.HALF_UP);
+        System.out.println(decimalFormat.format(money));
+
+    }
 }

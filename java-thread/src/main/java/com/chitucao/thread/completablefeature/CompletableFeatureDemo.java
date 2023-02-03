@@ -372,4 +372,16 @@ public class CompletableFeatureDemo {
             e.printStackTrace();
         }
     }
+
+
+    // 异步处理
+//    CompletableFuture<List<TimelyMonitorItemResult>> futureDay1 = CompletableFuture.supplyAsync(() -> getTimelyMonitorItemResult(monitorService, siteId, yesterday, yesterday), threadPoolTaskExecutor);
+//    CompletableFuture<TimelyMonitorItemResult> futureDay2 = CompletableFuture.supplyAsync(() ->
+//            BeanUtils.copy(getFullMonitorItemResultForToday(monitorService, siteId, QualityMonitorConstants.SIGN_OPT), TimelyMonitorItemResult.class), threadPoolTaskExecutor);
+//
+//    CompletableFuture<List<TimelyMonitorItemResult>> futureMonth1 = CompletableFuture.supplyAsync(() -> getTimelyMonitorItemResult(monitorService, siteId, firstDayOfMonth, lastDayOfMonth), threadPoolTaskExecutor);
+//    CompletableFuture<TimelyMonitorItemResult> futureMonth2 = CompletableFuture.supplyAsync(() ->
+//            BeanUtils.copy(getFullMonitorItemResultForMonth(monitorService, siteId, QualityMonitorConstants.SIGN_OPT), TimelyMonitorItemResult.class), threadPoolTaskExecutor);
+//
+//        CompletableFuture.allOf(futureDay1, futureDay2, futureMonth1, futureMonth2).join();
 }

@@ -41,4 +41,19 @@ public class MathTest {
         list.add("hdaofhdao");
         System.out.println(list);
     }
+
+    @Test
+    public void testLog(){
+        double result = Math.log(8) / Math.log(2);
+        System.out.println(result);
+
+        double result2 = Math.log(10000)/Math.log(10);
+        System.out.println(result2);
+    }
+
+    //
+    @Test
+    public void testCeil(){
+
+    }
 }

@@ -5,7 +5,7 @@ package cn.chitucao.passivereference;
  * @since 2020/6/16 19:03
  */
 public class ConstantClass {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         System.out.println(Constant.HELLOWORLD);
     }
 }

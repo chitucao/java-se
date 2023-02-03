@@ -126,8 +126,25 @@ public class RegexTest {
 //        System.out.println(ReUtil.isMatch(reg, text));
     }
 
+
     @Test
-    public void testValidate(){
+    public void testValidateMobile() {
+
+        String mobile = "176005328861";
+        String reg = "^(?:0|86|\\+86)?1[3-9]\\d{9}$";
+        System.out.println(ReUtil.isMatch(reg, mobile));
+    }
+
+    @Test
+    public void testValidateIdCard() {
+        String idCard = "340881199503265619";
+        String reg = "^[1-9]\\d{5}[1-2]\\d{3}((0\\d)|(1[0-2]))(([012]\\d)|3[0-1])\\d{3}(\\d|X|x)$";
+        System.out.println(ReUtil.isMatch(reg, idCard));
+    }
+
+
+    @Test
+    public void testValidate() {
         // 营业执照号
         String licencesNo = "FA1234561234ABCDX1";
         System.out.println(licencesNo.length());
@@ -147,5 +164,10 @@ public class RegexTest {
         // 联系电话
         String tel = "18600532881";
         Assert.isTrue(ReUtil.isMatch("^\\d{11}$", tel) && !tel.startsWith("086"), "联系电话要求是11位纯数字；前三位不能为086");
+
+
+        // 手机号校验
+
     }
+
 }

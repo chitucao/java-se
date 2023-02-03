@@ -3,10 +3,11 @@ package com.chitucao.thread.volatiles;
 /**
  * @author DennyFly
  * @since 2020/3/6 11:11
+ * 验证volatile的多线程可见性
  */
-public class VolatileDemo {
-//    public /*volatile*/ static boolean stop = false;
-    public volatile static boolean stop = false;
+public class VolatileVisableDemo {
+    public /*volatile*/ static boolean stop = false;
+//    public volatile static boolean stop = false;
 
     public static void main(String[] args) throws InterruptedException {
         Thread thread = new Thread(() -> {
